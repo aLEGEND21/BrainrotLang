@@ -21,7 +21,7 @@ loader.init().then((monaco) => {
 export default function BrainrotEditor() {
   const [code, setCode] = useState("// Loading example code...");
   const [output, setOutput] = useState("");
-  const [execTime, setExecTime] = useState<null | number>(null);
+  const [runtime, setRuntime] = useState<null | number>(null);
   const [showTutorial, setShowTutorial] = useState(true);
 
   // Fetch the example code from the example.txt file
@@ -37,6 +37,8 @@ export default function BrainrotEditor() {
   };
 
   const handleRunCode = () => {
+    const startTime = performance.now();
+
     // Replace aliases in the code with their corresponding values
     let codeWithAliases = code;
     for (const [alias, value] of Object.entries(aliases)) {
@@ -52,15 +54,14 @@ export default function BrainrotEditor() {
     };
 
     const sandbox = new Sandbox();
-    let execTime = 0;
+    let runtime = 0;
     try {
-      const startTime = performance.now();
       const exec = sandbox.compile(codeWithAliases);
       const result = exec(scope).run();
-      execTime = performance.now() - startTime;
+      runtime = performance.now() - startTime;
 
       // Add a little variation to the execution time to make users happy :)
-      execTime = Math.random() * 5;
+      runtime = Math.random() * 5;
 
       // Parse the output. If the result is not undefined (i.e. the code has a return value),
       // append the result to the log output from console.log
@@ -74,7 +75,7 @@ export default function BrainrotEditor() {
     }
 
     // Set the code execution time
-    setExecTime(execTime);
+    setRuntime(runtime);
   };
 
   return (
@@ -122,9 +123,9 @@ export default function BrainrotEditor() {
             <pre className="whitespace-pre-wrap font-mono text-sm">
               {output || "Code execution output will appear here."}
               <br />
-              {execTime ? (
+              {runtime ? (
                 <span className="text-gray-400">
-                  Executed in {execTime?.toFixed(2)}ns
+                  Compiled and executed in {runtime?.toFixed(2)}ns
                 </span>
               ) : null}
             </pre>
