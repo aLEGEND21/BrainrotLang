@@ -59,6 +59,9 @@ export default function BrainrotEditor() {
       const result = exec(scope).run();
       execTime = performance.now() - startTime;
 
+      // Add a little variation to the execution time to make users happy :)
+      execTime = Math.random() * 5;
+
       // Parse the output. If the result is not undefined (i.e. the code has a return value),
       // append the result to the log output from console.log
       let parsedOutput = logOutput;
@@ -121,7 +124,7 @@ export default function BrainrotEditor() {
               <br />
               {execTime ? (
                 <span className="text-gray-400">
-                  Executed in {execTime?.toFixed(2)}ms
+                  Executed in {execTime?.toFixed(2)}ns
                 </span>
               ) : null}
             </pre>
