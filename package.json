@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "serve": "serve -s dist -l 3005"
+    "serve": "serve -s dist -l 2003"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",

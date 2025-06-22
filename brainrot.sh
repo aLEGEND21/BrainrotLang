@@ -5,4 +5,4 @@ git clone https://github.com/aLEGEND21/BrainrotLang.git
 cd BrainrotLang
 sudo docker build -t brainrot-lang .
 sudo docker rm -f brainrot-lang
-sudo docker run -d --name brainrot-lang -p 3005:3005 --network=nginx-proxy brainrot-lang
+sudo docker run -d --name brainrot-lang -p 2003:2003 --network=nginx-proxy brainrot-lang
